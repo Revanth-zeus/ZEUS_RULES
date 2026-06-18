@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: load-profitability-agent
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python data/generate_synthetic.py"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: LOAD_DATA_PATH
+        value: data/loads.csv
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
